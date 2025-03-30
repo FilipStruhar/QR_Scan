@@ -7,28 +7,40 @@
     <button onclick="startScanner()">Scan QR Code</button>
     <div id="reader" style="width: 300px; display: none;"></div>
     <p>Scanned QR Code: <span id="result"></span></p>
+    <button id="submitBtn" onclick="submitQR()" disabled>Submit</button>
 
     <script>
-        let scannedValue = ""; // Variable to store QR code value
+        let scannedValue = ""; // Variable to store QR value
 
         function startScanner() {
-            document.getElementById("reader").style.display = "block"; // Show scanner UI
+            document.getElementById("reader").style.display = "block";
             const html5QrCode = new Html5Qrcode("reader");
 
             html5QrCode.start(
-                { facingMode: "environment" },  // Use rear camera
+                { facingMode: "environment" },  
                 { fps: 10, qrbox: 250 },
                 qrCodeMessage => {
-                    scannedValue = qrCodeMessage; // Store the QR code value
+                    scannedValue = qrCodeMessage;
                     document.getElementById("result").innerText = scannedValue;
-                    console.log("Scanned QR Code:", scannedValue);
-                    html5QrCode.stop(); // Stop scanning
-                    document.getElementById("reader").style.display = "none"; // Hide scanner UI
+                    document.getElementById("submitBtn").disabled = false;
+                    html5QrCode.stop();
+                    document.getElementById("reader").style.display = "none";
                 },
-                errorMessage => {
-                    // Handle errors or ignore them
-                }
+                errorMessage => {}
             ).catch(err => console.error(err));
+        }
+
+        function submitQR() {
+            fetch("http://127.0.0.1:5000/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ qr_code: scannedValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error("Error:", error));
         }
     </script>
 </body>
