@@ -1,3 +1,4 @@
+
 const scanner = new Html5QrcodeScanner('reader', { 
     // Scanner will be initialized in DOM inside element with id of 'reader'
     qrbox: {
@@ -7,27 +8,20 @@ const scanner = new Html5QrcodeScanner('reader', {
     fps: 20, // Frames per second to attempt a scan
 });
 
-
-scanner.render(success, error);
-// Starts scanner
-
-function success(result) {
-
-    document.getElementById('result').innerHTML = `
+// On success show value in #result and clean the screen
+function success(qr_result) {
+    document.getElementById('qr_result').innerHTML = `
     <h2>Success!</h2>
-    <p><a href="${result}">${result}</a></p>
+    <p><a href="${qr_result}">${qr_result}</a></p>
     `;
-    // Prints result as a link inside result element
 
     scanner.clear();
-    // Clears scanning instance
-
     document.getElementById('reader').remove();
-    // Removes reader element from DOM since no longer needed
-
 }
-
+// Console log error when scanning QR
 function error(err) {
     console.error(err);
-    // Prints any errors to the console
 }
+
+// Starts scanner with output either succes or error
+scanner.render(success, error);

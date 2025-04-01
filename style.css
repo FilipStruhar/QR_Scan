@@ -1,12 +1,13 @@
-main {
+#qr_container {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 100vh;
 }
 #reader {
-    width: 600px;
+    min-width: 70%;
 }
 #result {
-    text-align: center;
     font-size: 1.5rem;
 }
