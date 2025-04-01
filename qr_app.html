@@ -1,47 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Scanner</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.7/html5-qrcode.min.js"></script>
 </head>
 <body>
-    <button onclick="startScanner()">Scan QR Code</button>
-    <div id="reader" style="width: 300px; display: none;"></div>
-    <p>Scanned QR Code: <span id="result"></span></p>
-    <button id="submitBtn" onclick="submitQR()" disabled>Submit</button>
+  <h2>Scan a QR Code</h2>
+  <div id="reader" style="width: 100%;"></div>
+  
+  <!-- Hidden input to store QR result -->
+  <input type="text" id="qr-result" hidden>
+  
+  <script>
+    // Declare a variable to store the QR code value
+    let qrCodeValue = "";
 
-    <script>
-        let scannedValue = ""; // Variable to store QR value
+    // Function to handle the QR code scan success
+    function onScanSuccess(decodedText) {
+      // Store the decoded QR value in the variable
+      qrCodeValue = decodedText;
 
-        function startScanner() {
-            document.getElementById("reader").style.display = "block";
-            const html5QrCode = new Html5Qrcode("reader");
+      // Also set the QR code value in the hidden input (for debugging or other use cases)
+      document.getElementById("qr-result").value = decodedText;
 
-            html5QrCode.start(
-                { facingMode: "environment" },  
-                { fps: 10, qrbox: 250 },
-                qrCodeMessage => {
-                    scannedValue = qrCodeMessage;
-                    document.getElementById("result").innerText = scannedValue;
-                    document.getElementById("submitBtn").disabled = false;
-                    html5QrCode.stop();
-                    document.getElementById("reader").style.display = "none";
-                },
-                errorMessage => {}
-            ).catch(err => console.error(err));
-        }
+      // You can optionally log or manipulate the scanned value here
+      console.log("Scanned QR Code Value:", qrCodeValue);
+    }
 
-        function submitQR() {
-            fetch("http://127.0.0.1:5000/submit", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ qr_code: scannedValue })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-            })
-            .catch(error => console.error("Error:", error));
-        }
-    </script>
+    // Initialize the HTML5 QR Code scanner
+    let html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess);
+
+    // You can now access the scanned value in the 'qrCodeValue' variable
+    // The value will be updated whenever a new QR code is scanned.
+  </script>
 </body>
 </html>

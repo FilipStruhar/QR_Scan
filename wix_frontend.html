@@ -1,0 +1,431 @@
+<p>
+    <!-- Google Fonts (Poppins) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <style>
+      /* Base reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    
+      /* 
+        V původním kódu jsi měl styly pro html, body apod.
+        Ty můžeš klidně ponechat, ale pamatuj, že to je iframe, 
+        takže je nebude Wix přepisovat (a naopak).
+        Pokud to nepotřebuješ, klidně smaž.
+      */
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;         
+        overflow-x: hidden;       
+        -ms-overflow-style: none; 
+        scrollbar-width: none;    
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+      }
+    
+      body::-webkit-scrollbar {
+        display: none;
+      }
+    
+      /* Main heading (Poppins) */
+      .main-heading {
+        font-family: 'Poppins', sans-serif;
+        color: #512E59;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    
+      /* Card container: purple background */
+      .card {
+        background-color: #512E59;
+        color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        width: 100%;
+        max-width: 400px; /* Default on small devices */
+      }
+    
+      .form-group {
+        margin-bottom: 15px;
+      }
+    
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+    
+      /* Input fields and select: white background, dark text */
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 0.9rem;
+        color: #333;
+        background-color: #fff;
+      }
+    
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: 2px solid #8bc34a; /* Highlight on focus */
+      }
+    
+      .optional-note {
+        display: block;
+        color: #ccc;
+        margin-top: 4px;
+        font-size: 0.8rem;
+      }
+    
+      /* Submit button */
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #D1AADA;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+        transition: 0.3s;
+        font-weight: 600;
+      }
+    
+      .submit-btn:hover {
+        background-color: #C29ACA;
+      }
+    
+      /* Terms note under the button */
+      .terms-note {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        color: #ddd;
+        text-align: center;
+      }
+    
+      /* Success message after submission */
+      .success-message {
+        text-align: center;
+        color: #4caf50;
+        margin-top: 15px;
+        font-weight: 600;
+      }
+    
+      /* 
+        MOBILE: For screens up to 480px wide 
+      */
+      @media screen and (max-width: 480px) {
+        .main-heading {
+          font-size: 2rem;
+        }
+        .card {
+          padding: 15px;
+        }
+        .form-group input,
+        .form-group select {
+          padding: 8px;
+          font-size: 0.9rem;
+        }
+        .submit-btn {
+          font-size: 1rem;
+        }
+      }
+    
+      /* 
+        TABLET/DESKTOP: For screens 768px and wider 
+      */
+      @media screen and (min-width: 768px) {
+        .card {
+          max-width: 600px; /* Wider on larger screens */
+        }
+      }
+    </style>
+    
+    <!-- Hlavní nadpis -->
+    <div class="main-heading">Booking</div>
+    
+    <!-- Kontejner formuláře -->
+    <div class="card">
+      <form id="bookingForm">
+        <!-- 1. First Name -->
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input 
+            type="text"
+            id="firstName"
+            name="firstName"
+            placeholder="Enter your first name"
+            required
+          />
+        </div>
+    
+        <!-- 2. Last Name -->
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input 
+            type="text"
+            id="lastName"
+            name="lastName"
+            placeholder="Enter your last name"
+            required
+          />
+        </div>
+    
+        <!-- 3. Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+    
+        <!-- 4. Number of Luggage -->
+        <div class="form-group">
+          <label for="luggage">Number of Luggage</label>
+          <select id="luggage" name="luggage" required>
+            <option value="">-- Select Luggage Option --</option>
+            <option value="0">0 - 0 €</option>
+            <option value="1">1 - 30 €</option>
+            <option value="2">2 - 40 €</option>
+            <option value="3">3 - 50 €</option>
+            <option value="4">4 - 55 €</option>
+            <option value="5">5 - 60 €</option>
+          </select>
+        </div>
+    
+        <!-- 5. Luggage Pick Up Date -->
+        <div class="form-group">
+          <label for="pickupDate">Luggage Pick Up Date</label>
+          <input 
+            type="date" 
+            id="pickupDate" 
+            name="pickupDate" 
+            required
+          />
+        </div>
+    
+        <!-- 6. Flight Number (Optional) -->
+        <div class="form-group">
+          <label for="flightNumber">Flight Number (Optional)</label>
+          <input 
+            type="text"
+            id="flightNumber"
+            name="flightNumber"
+            placeholder="e.g., AB1234"
+          />
+        </div>
+    
+    <!-- 7. Destination (Complete List) -->
+    <div class="form-group">
+    <label for="destination">Destination</label>
+    <select id="destination" name="destination" required>
+    <option value="">-- Select Destination --</option>
+    <option value="Abu Dhabi - T1">Abu Dhabi - T1</option>
+    <option value="Alicante - T2">Alicante - T2</option>
+    <option value="Amsterdam - T2">Amsterdam - T2</option>
+    <option value="Antalya - T1">Antalya - T1</option>
+    <option value="Astana - T1">Astana - T1</option>
+    <option value="Athens - T2">Athens - T2</option>
+    <option value="Bahrain - T1">Bahrain - T1</option>
+    <option value="Baku - T1">Baku - T1</option>
+    <option value="Barcelona - T2">Barcelona - T2</option>
+    <option value="Bari - T2">Bari - T2</option>
+    <option value="Basel / Mulhouse - T2">Basel / Mulhouse - T2</option>
+    <option value="Belgrade - T1">Belgrade - T1</option>
+    <option value="Belfast - T1">Belfast - T1</option>
+    <option value="Venice (TSF) - T2">Venice (TSF) - T2</option>
+    <option value="Venice (VCE) - T2">Venice (VCE) - T2</option>
+    <option value="Bilbao - T2">Bilbao - T2</option>
+    <option value="Birmingham - T1">Birmingham - T1</option>
+    <option value="Bristol - T1">Bristol - T1</option>
+    <option value="Brussels (CRL) - T2">Brussels (CRL) - T2</option>
+    <option value="Brussels (BRU) - T2">Brussels (BRU) - T2</option>
+    <option value="Budapest - T2">Budapest - T2</option>
+    <option value="Bucharest - T2">Bucharest - T2</option>
+    <option value="Zurich - T2">Zurich - T2</option>
+    <option value="Doha - T1">Doha - T1</option>
+    <option value="Dubai - T1">Dubai - T1</option>
+    <option value="Dublin - T1">Dublin - T1</option>
+    <option value="Düsseldorf - T2">Düsseldorf - T2</option>
+    <option value="Edinburgh - T1">Edinburgh - T1</option>
+    <option value="Eindhoven - T2">Eindhoven - T2</option>
+    <option value="Florence - T2">Florence - T2</option>
+    <option value="Frankfurt - T2">Frankfurt - T2</option>
+    <option value="Fuerteventura - T2">Fuerteventura - T2</option>
+    <option value="Gdańsk - T2">Gdańsk - T2</option>
+    <option value="Glasgow - T1">Glasgow - T1</option>
+    <option value="Helsinki - T2">Helsinki - T2</option>
+    <option value="Holguín - T1">Holguín - T1</option>
+    <option value="Hurghada - T1">Hurghada - T1</option>
+    <option value="Istanbul (SAW) - T1">Istanbul (SAW) - T1</option>
+    <option value="Istanbul (IST) - T1">Istanbul (IST) - T1</option>
+    <option value="Izmir - T1">Izmir - T1</option>
+    <option value="Cairo - T1">Cairo - T1</option>
+    <option value="Catania - T2">Catania - T2</option>
+    <option value="Kayseri - T1">Kayseri - T1</option>
+    <option value="Chișinău - T1">Chișinău - T1</option>
+    <option value="Copenhagen - T2">Copenhagen - T2</option>
+    <option value="Cologne / Bonn - T2">Cologne / Bonn - T2</option>
+    <option value="Košice - T2">Košice - T2</option>
+    <option value="Krabi - T1">Krabi - T1</option>
+    <option value="Kraków - T2">Kraków - T2</option>
+    <option value="Kutaisi - T1">Kutaisi - T1</option>
+    <option value="Lanzarote - T2">Lanzarote - T2</option>
+    <option value="Larnaca - T1">Larnaca - T1</option>
+    <option value="Las Palmas - T2">Las Palmas - T2</option>
+    <option value="Leeds - T1">Leeds - T1</option>
+    <option value="Lisbon - T2">Lisbon - T2</option>
+    <option value="Liverpool - T1">Liverpool - T1</option>
+    <option value="London (LGW) - T1">London (LGW) - T1</option>
+    <option value="London (STN) - T1">London (STN) - T1</option>
+    <option value="London (LHR) - T1">London (LHR) - T1</option>
+    <option value="London (LCY) - T1">London (LCY) - T1</option>
+    <option value="Luxembourg - T2">Luxembourg - T2</option>
+    <option value="Lyon - T2">Lyon - T2</option>
+    <option value="Madeira - T2">Madeira - T2</option>
+    <option value="Madrid - T2">Madrid - T2</option>
+    <option value="Malaga - T2">Malaga - T2</option>
+    <option value="Manchester - T1">Manchester - T1</option>
+    <option value="Marsa Alam - T1">Marsa Alam - T1</option>
+    <option value="Marseille - T2">Marseille - T2</option>
+    <option value="Milan (MXP) - T2">Milan (MXP) - T2</option>
+    <option value="Milan (BGY) - T2">Milan (BGY) - T2</option>
+    <option value="Munich - T2">Munich - T2</option>
+    <option value="Mombasa - T1">Mombasa - T1</option>
+    <option value="Nantes - T2">Nantes - T2</option>
+    <option value="Naples - T2">Naples - T2</option>
+    <option value="New York (JFK) - T1">New York (JFK) - T1</option>
+    <option value="Newcastle - T1">Newcastle - T1</option>
+    <option value="Nice - T2">Nice - T2</option>
+    <option value="Nottingham - T1">Nottingham - T1</option>
+    <option value="Oslo - T2">Oslo - T2</option>
+    <option value="Palma de Mallorca - T2">Palma de Mallorca - T2</option>
+    <option value="Paris (BVA) - T2">Paris (BVA) - T2</option>
+    <option value="Paris (ORY) - T2">Paris (ORY) - T2</option>
+    <option value="Paris (CDG) - T2">Paris (CDG) - T2</option>
+    <option value="Beijing - T1">Beijing - T1</option>
+    <option value="Phu Quoc - T1">Phu Quoc - T1</option>
+    <option value="Pisa - T2">Pisa - T2</option>
+    <option value="Podgorica - T1">Podgorica - T1</option>
+    <option value="Porto - T2">Porto - T2</option>
+    <option value="Puerto Vallarta - T1">Puerto Vallarta - T1</option>
+    <option value="Punta Cana - T1">Punta Cana - T1</option>
+    <option value="Reykjavik - T2">Reykjavik - T2</option>
+    <option value="Riga - T2">Riga - T2</option>
+    <option value="Rome (FCO) - T2">Rome (FCO) - T2</option>
+    <option value="Rome (CIA) - T2">Rome (CIA) - T2</option>
+    <option value="Santa Clara - T1">Santa Clara - T1</option>
+    <option value="Seville - T2">Seville - T2</option>
+    <option value="Sofia - T2">Sofia - T2</option>
+    <option value="Seoul - T1">Seoul - T1</option>
+    <option value="Stockholm - T2">Stockholm - T2</option>
+    <option value="Taipei - T1">Taipei - T1</option>
+    <option value="Tel Aviv - T1">Tel Aviv - T1</option>
+    <option value="Tenerife - T2">Tenerife - T2</option>
+    <option value="Trieste - T2">Trieste - T2</option>
+    <option value="Tirana - T1">Tirana - T1</option>
+    <option value="Toronto - T1">Toronto - T1</option>
+    <option value="Valencia - T2">Valencia - T2</option>
+    <option value="Warsaw - T2">Warsaw - T2</option>
+    <option value="Vienna - T2">Vienna - T2</option>
+    <option value="Vilnius - T2">Vilnius - T2</option>
+    <option value="Zagreb - T2">Zagreb - T2</option>
+    <option value="Zanzibar - T1">Zanzibar - T1</option>
+    <option value="Geneva - T2">Geneva - T2</option>
+    </select>
+    </div>
+        <!-- 8. Luggage Pick Time (15:00 - 23:59) -->
+        <div class="form-group">
+          <label for="pickupTime">Luggage Pick Time at the Airport</label>
+          <input
+            type="time"
+            id="pickupTime"
+            name="pickupTime"
+            min="15:00"
+            max="23:59"
+            value="15:00"
+            required
+            pattern="(1[5-9]|2[0-3]):[0-5][0-9]"
+          />
+          <small class="optional-note">
+            Select the time you wish to meet your luggage at the airport (available from 15:00 to midnight).
+          </small>
+        </div>
+    
+        <!-- Submit button -->
+        <button type="submit" class="submit-btn">Submit Booking</button>
+    
+        <!-- Terms note -->
+        <p class="terms-note">
+          By clicking the "Submit Booking" button, you agree to our
+          <a href="#" style="color: #fff; text-decoration: underline;">Terms &amp; Conditions</a>.
+        </p>
+      </form>
+      <div id="response" class="success-message"></div>
+    </div>
+    
+    <script>
+      const form = document.getElementById('bookingForm');
+      const responseDiv = document.getElementById('response');
+    
+      // Insert your Google Apps Script Web App URL here:
+      const scriptURL = 'https://script.google.com/a/macros/jakubdavid.com/s/AKfycbzrwDK_EO3LjUHcFgnrTgmiB9JUb4PzCDmOCHjD-Y7W1WP-iwXLNE7cbsz-k5d1tSGC/exec';
+    
+      // Additional check in JavaScript to prevent manual typing outside 15:00-23:59
+      function isValidTime(timeValue) {
+        const [hh, mm] = timeValue.split(':').map(Number);
+        return (hh >= 15 && hh <= 23);
+      }
+    
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        // Time check
+        const pickupTime = document.getElementById('pickupTime').value;
+        if (!isValidTime(pickupTime)) {
+          alert('Please select a time between 15:00 and 23:59');
+          return;
+        }
+    
+        // Submit data to Google Sheets via fetch
+        const formData = new FormData(form);
+        fetch(scriptURL, { method: 'POST', body: formData })
+          .then(response => response.json())
+          .then(data => {
+            // Expecting JSON format, e.g. { "result":"success" }
+            if (data.result === 'success') {
+              responseDiv.textContent = 'Your booking has been submitted successfully!';
+              form.reset();
+            } else {
+              responseDiv.textContent = 'An error occurred. Please try again.';
+            }
+          })
+          .catch(error => {
+            console.error('Error!', error);
+            responseDiv.textContent = 'An error occurred. Please try again.';
+          });
+      });
+    </script>
+    </p>
