@@ -10,13 +10,14 @@ const scanner = new Html5QrcodeScanner('reader', {
 
 // On success show value in #result and clean the screen
 function success(qr_result) {
-    document.getElementById('qr_result').innerHTML = `
+    document.getElementById('result').innerHTML = `
     <h2>Success!</h2>
     <p><a href="${qr_result}">${qr_result}</a></p>
     `;
 
     scanner.clear();
     document.getElementById('reader').remove();
+    document.getElementById('result').style.display = 'flex';
 }
 // Console log error when scanning QR
 function error(err) {
