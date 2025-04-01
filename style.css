@@ -1,19 +1,12 @@
-h1 {
+main {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
-
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
-#scanner {
-    width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
+#reader {
+    width: 600px;
 }
 #result {
-    margin-top: 20px;
-    font-size: 20px;
-    color: green;
+    text-align: center;
+    font-size: 1.5rem;
 }
