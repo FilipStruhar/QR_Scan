@@ -24,7 +24,25 @@ function qr_scan(caller) {
         document.getElementById('reader').remove();
         document.getElementById('result').style.display = 'flex';
 
-        console.log(`${caller}: ${qr_result}`);
+        //console.log(`${caller}: ${qr_result}`);
+        // Send the variable to the PHP script using Fetch API
+        fetch('index.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'track_num': qr_result,
+                'caller': caller
+            })
+        })
+        .then(response => response.json()) // Convert response to JSON
+        .then(data => {
+            console.log('Received from PHP:', data);
+        })
+        .catch((error) => {
+            console.error('Fetch Error:', error);
+        });
     }
     // Console log error when scanning QR
     function error(err) {
